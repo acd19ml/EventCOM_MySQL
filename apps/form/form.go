@@ -28,6 +28,13 @@ type FieldSet struct {
 	Fields []*Field
 }
 
+func NewForm() *Form {
+	return &Form{
+		Head:     &Head{},
+		FieldSet: &FieldSet{},
+	}
+}
+
 // Form模型的定义
 type Form struct {
 	// 表格公共属性部分
