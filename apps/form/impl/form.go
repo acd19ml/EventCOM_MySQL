@@ -9,7 +9,8 @@ import (
 
 func (i *FormServiceImpl) CreateForm(ctx context.Context, ins *form.Form) (*form.Form, error) {
 	// 直接打印日志
-	i.l.Debug("create form")
+	i.l.Named("Create").Debug("create form")
+	i.l.Info("create form")
 	// 带Format的日志打印, fmt.Sprintf()
 	i.l.Debugf("create form: %s", ins.Name)
 	// 携带额外meta数据, 常用于Trace系统
