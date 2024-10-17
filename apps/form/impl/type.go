@@ -49,20 +49,8 @@ type SelectionField struct {
 
 // 验证选择类型字段的输入
 func (f SelectionField) Validate(input interface{}) error {
-	// 单选的情况，输入应该是一个字符串
-	if !f.MultipleSelection {
-		value, ok := input.(string)
-		if !ok {
-			return fmt.Errorf("invalid input type, expected string")
-		}
-		// 检查输入的值是否在选项列表中
-		if !contains(f.Options, value) {
-			return fmt.Errorf("invalid selection: %s", value)
-		}
-		return nil
-	}
 
-	// 多选的情况，输入应该是一个字符串切片
+	// 输入应该是一个字符串切片
 	values, ok := input.([]string)
 	if !ok {
 		return fmt.Errorf("invalid input type, expected []string")
