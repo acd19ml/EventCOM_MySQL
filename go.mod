@@ -3,7 +3,8 @@ module github.com/acd19ml/EventCOM_MySQL
 go 1.21.6
 
 require (
-	github.com/infraboard/mcube v1.19.22
+	github.com/BurntSushi/toml v1.3.2
+	github.com/caarlos0/env/v6 v6.10.1
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.9.0
 	go.uber.org/zap v1.27.0
