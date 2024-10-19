@@ -1,0 +1,32 @@
+{
+    "code": 0,
+    "data": {
+        "id": "id_04",
+        "name": "test form",
+        "created_at": 1729345617157,
+        "updated_at": 0,
+        "FieldSet": [
+            {
+                "id": "07",
+                "head_id": "id_04",
+                "label": "Field 1",
+                "type": "number",
+                "required": true,
+                "description": "This is field 1",
+                "max_value": 100
+            },
+            {
+                "id": "08",
+                "head_id": "id_04",
+                "label": "Field 2",
+                "type": "selection",
+                "required": true,
+                "description": "This is field 2",
+                "options": [
+                    "Option 1",
+                    "Option 2"
+                ]
+            }
+        ]
+    }
+}

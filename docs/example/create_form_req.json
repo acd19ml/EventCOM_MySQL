@@ -1,0 +1,35 @@
+{
+    "id": "id_04",
+    "name": "test form",
+    "fieldSet": [
+      {
+        "id": "07",
+        "head_id": "id_04",
+        "label": "Field 1",
+        "type": "number", 
+        "required": true,
+        "description": "This is field 1",
+        "min_value": 0,
+        "max_value": 100,
+        "min_date": 0,
+        "max_date": 0,
+        "multiple_selection": false,
+        "options": []
+      },
+      {
+        "id": "08",
+        "head_id": "id_04",
+        "label": "Field 2",
+        "type": "selection",  
+        "required": true,
+        "description": "This is field 2",
+        "min_value": 0,
+        "max_value": 0,
+        "min_date": 0,
+        "max_date": 0,
+        "multiple_selection": false,
+        "options": ["Option 1", "Option 2"]
+      }
+    ]
+  }
+  

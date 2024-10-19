@@ -36,21 +36,23 @@ func (i *FormServiceImpl) save(ctx context.Context, ins *form.Form) error {
 	}()
 
 	// 插入Head数据
-	hstmt, err := tx.Prepare(InsertHeadSQL)
+	hstmt, err := tx.PrepareContext(ctx, InsertHeadSQL)
 	if err != nil {
 		return err
 	}
 	defer hstmt.Close()
 
-	_, err = hstmt.Exec(
+	r, err := hstmt.ExecContext(ctx,
 		ins.Head.Id, ins.Head.Name, ins.Head.CreatedAt, ins.Head.UpdatedAt,
 	)
 	if err != nil {
 		return err
+	} else {
+		fmt.Printf("insert head success, %v", r)
 	}
 
 	// 插入Field数据
-	fstmt, err := tx.Prepare(InsertFieldSQL)
+	fstmt, err := tx.PrepareContext(ctx, InsertFieldSQL)
 	if err != nil {
 		return err
 	}
@@ -62,12 +64,14 @@ func (i *FormServiceImpl) save(ctx context.Context, ins *form.Form) error {
 		if err != nil {
 			return fmt.Errorf("failed to marshal options: %v", err)
 		}
-		_, err = fstmt.Exec(
+		f, err := fstmt.ExecContext(ctx,
 			field.Id, field.Head_Id, field.Label, field.Type, field.Required, field.Description,
 			field.MinValue, field.MaxValue, field.MinDate, field.MaxDate, field.MultipleSelection, string(optionsJSON),
 		)
 		if err != nil {
 			return err
+		} else {
+			fmt.Printf("insert field success, %v", f)
 		}
 	}
 	return nil

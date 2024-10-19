@@ -22,14 +22,14 @@ func TestCreate(t *testing.T) {
 
 	// 创建一个Form对象
 	ins := form.NewForm()
-	ins.Head.Id = "id_01"
+	ins.Head.Id = "id_04"
 	ins.Head.Name = "test form"
 
 	// 创建多个 Field 并加入到 FieldSet 中
 	ins.FieldSet = []*form.Field{
 		{
-			Id:                "01",
-			Head_Id:           "id_01", // 与 Head 关联的 ID
+			Id:                "07",
+			Head_Id:           "id_04", // 与 Head 关联的 ID
 			Label:             "Field 1",
 			Type:              impl.NumberField{}.GetType(),
 			Required:          true,
@@ -42,8 +42,8 @@ func TestCreate(t *testing.T) {
 			Options:           []string{},
 		},
 		{
-			Id:                "02",
-			Head_Id:           "id_01", // 与 Head 关联的 ID
+			Id:                "08",
+			Head_Id:           "id_04", // 与 Head 关联的 ID
 			Label:             "Field 2",
 			Type:              impl.SelectionField{}.GetType(),
 			Required:          true,

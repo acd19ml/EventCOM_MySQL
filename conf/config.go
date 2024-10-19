@@ -138,6 +138,10 @@ func (m *MySQL) getDBConn() (*sql.DB, error) {
 	return db, nil
 }
 
+func (a *App) HTTPAddr() string {
+	return fmt.Sprintf("%s:%s", a.Host, a.Port)
+}
+
 func NewDefaultLog() *Log {
 	return &Log{
 		// debug, info, error, warn

@@ -17,7 +17,7 @@ func (i *FormServiceImpl) CreateForm(ctx context.Context, ins *form.Form) (*form
 
 	// 校验数据合法性
 	if err := ins.Validate(); err != nil {
-		return ins, nil
+		return nil, err
 	}
 
 	// 默认值注入

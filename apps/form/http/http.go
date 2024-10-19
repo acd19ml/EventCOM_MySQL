@@ -5,6 +5,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func NewFormHTTPHandler(svc form.Service) *Handler {
+	return &Handler{
+		svc: svc,
+	}
+}
+
 type Handler struct {
 	svc form.Service
 }
