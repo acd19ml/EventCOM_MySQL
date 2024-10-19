@@ -17,8 +17,7 @@ func TestLoadConfigFromToml(t *testing.T) {
 
 func TestLoadConfigFromEnv(t *testing.T) {
 	should := assert.New(t)
-	// os.Setenv("MYSQL_DATABASE", "unit_test")
-	err := conf.LoadConfigFromEnv()
+	err := conf.LoadConfigFromEnv("../etc/unit_test.env")
 	if should.NoError(err) {
 		should.Equal("EventCOM", conf.C().MySQL.Database)
 	}

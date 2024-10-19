@@ -78,7 +78,8 @@ func TestCreate(t *testing.T) {
 
 func init() {
 	// 测试用例的配置文件
-	err := conf.LoadConfigFromToml("../../../etc/demo.toml")
+	// err := conf.LoadConfigFromToml("../../../etc/demo.toml")
+	err := conf.LoadConfigFromEnv("../../../etc/unit_test.env")
 	if err != nil {
 		panic(err)
 	}

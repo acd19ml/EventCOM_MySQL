@@ -5,6 +5,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/caarlos0/env/v6"
+	"github.com/joho/godotenv"
 )
 
 // 配置映射成Config对象
@@ -22,9 +23,15 @@ func LoadConfigFromToml(filePath string) error {
 }
 
 // 从环境变量加载配置
-func LoadConfigFromEnv() error {
+func LoadConfigFromEnv(filePath string) error {
+	// 首先加载 .env 文件
+	err := godotenv.Load(filePath)
+	if err != nil {
+		return fmt.Errorf("Error loading .env file: %v", err)
+	}
+
 	config = NewDefaultConfig()
-	err := env.Parse(config)
+	err = env.Parse(config)
 	if err != nil {
 		return err
 	}
