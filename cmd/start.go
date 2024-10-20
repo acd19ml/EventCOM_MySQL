@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/acd19ml/EventCOM_MySQL/apps/form/http"
-	"github.com/acd19ml/EventCOM_MySQL/apps/form/impl"
+	"github.com/acd19ml/EventCOM_MySQL/apps"
+	_ "github.com/acd19ml/EventCOM_MySQL/apps/all"
 	"github.com/acd19ml/EventCOM_MySQL/conf"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
@@ -27,16 +27,13 @@ var StartCmd = &cobra.Command{
 			panic(err)
 		}
 
-		// 加载我们Host Service的实体类
-		// host service 的具体实现
-		service := impl.NewFormServiceImpl()
-
-		// 通过Form API Handler 提供 Restful API
-		api := http.NewFormHTTPHandler(service)
+		// 初始化所有的服务
+		apps.InitImpl()
 
 		// 提供gin router
 		g := gin.Default()
-		api.Registry(g)
+		// 注册IOC的所有http handler
+		apps.InitGin(g)
 
 		// 3. 启动服务
 		return g.Run(conf.C().App.HTTPAddr())

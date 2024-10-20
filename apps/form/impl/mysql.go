@@ -3,6 +3,7 @@ package impl
 import (
 	"database/sql"
 
+	"github.com/acd19ml/EventCOM_MySQL/apps"
 	"github.com/acd19ml/EventCOM_MySQL/apps/form"
 	"github.com/acd19ml/EventCOM_MySQL/conf"
 	"github.com/acd19ml/EventCOM_MySQL/mcube/logger"
@@ -14,8 +15,9 @@ type FormServiceImpl struct {
 	db *sql.DB
 }
 
-// 接口实现静态检查
-var _ form.Service = (*FormServiceImpl)(nil)
+var impl = &FormServiceImpl{}
+
+// var _ form.Service = (*FormServiceImpl)(nil)
 
 // 保证调用该函数之前, 全局conf对象已经初始化
 func NewFormServiceImpl() *FormServiceImpl {
@@ -29,4 +31,21 @@ func NewFormServiceImpl() *FormServiceImpl {
 		l:  zap.L().Named("Form"),
 		db: conf.C().MySQL.GetDB(),
 	}
+}
+
+func (i *FormServiceImpl) Config() {
+	// 初始化Logger
+	i.l = zap.L().Named("Form")
+	i.db = conf.C().MySQL.GetDB()
+}
+
+// 服务名
+func (i *FormServiceImpl) Name() string {
+	return form.AppName
+}
+
+// _ import app 自动执行注册逻辑
+func init() {
+	//  对象注册到ioc层
+	apps.RegistryImpl(impl)
 }
