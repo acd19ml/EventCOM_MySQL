@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+EventCOM
 
 # Test binary, built with `go test -c`
 *.test
@@ -16,3 +17,4 @@
 
 # toml
 *.toml
+
