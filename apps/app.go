@@ -69,6 +69,14 @@ func RegistryGin(svc GinService) {
 	ginApps[svc.Name()] = svc
 }
 
+// 已经加载完成的Gin App由哪些, 用于日志输出
+func LoadedGinApps() (names []string) {
+	for k := range ginApps {
+		names = append(names, k)
+	}
+	return
+}
+
 func InitGin(r gin.IRouter) {
 
 	// 初始化对象

@@ -151,6 +151,10 @@ func NewDefaultLog() *Log {
 	}
 }
 
+func (a *App) HttpAddr() string {
+	return fmt.Sprintf("%s:%s", a.Host, a.Port)
+}
+
 // Log todo
 type Log struct {
 	Level   string    `toml:"level" env:"LOG_LEVEL"`
