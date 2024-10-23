@@ -9,7 +9,7 @@ const (
 	JSONFormat = LogFormat("json")
 )
 
-// LogTo 日志记录到哪儿
+// LogTo 日志记录到哪儿 (ToFile,ToStdout)
 type LogTo string
 
 const (
