@@ -18,6 +18,8 @@ type Handler struct {
 
 func (h *Handler) Registry(r gin.IRouter) {
 	r.POST("/forms", h.createForm)
+	r.GET("/forms", h.queryForm)
+	r.GET("/forms/:id", h.describeForm)
 }
 
 func (h *Handler) Config() {

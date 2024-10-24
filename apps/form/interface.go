@@ -9,7 +9,7 @@ type Service interface {
 	// 查询表格列表
 	QueryForm(context.Context, *QueryFormRequest) (*FormSet, error)
 	// 查询表格详情
-	DescribeForm(context.Context, *QueryFormRequest) (*Form, error)
+	DescribeForm(context.Context, *DescribeFormRequest) (*Form, error)
 	// 表格更新
 	UpdateForm(context.Context, *UpdateFormRequest) (*Form, error)
 	// 表格删除, 比如前端需要 打印当前删除表格的名称或者其他信息

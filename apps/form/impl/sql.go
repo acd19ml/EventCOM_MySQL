@@ -32,4 +32,32 @@ const (
 			(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 	`
+
+	QueryFormSQL = `
+	SELECT 
+    h.id,
+    h.name
+
+    FROM 
+    	Head h
+	`
+
+	DescribeFormSQL = `
+	SELECT 
+    h.id,
+    h.name, 
+    f.label, 
+    f.type, 
+    f.required, 
+    f.description, 
+    f.min_value, 
+    f.max_value, 
+    f.min_date, 
+    f.max_date, 
+    f.multiple_selection, 
+    f.options
+    FROM 
+    	Head h
+    	RIGHT JOIN  Field f ON h.id = f.head_id
+	`
 )

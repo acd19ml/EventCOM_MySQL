@@ -30,3 +30,31 @@ func (h *Handler) createForm(c *gin.Context) {
 	// 成功, 把对象实例返回给HTTP API调用方
 	response.Success(c.Writer, ins)
 }
+
+func (h *Handler) queryForm(c *gin.Context) {
+
+	req := form.NewQueryFormFromHTTP(c.Request)
+
+	set, err := h.svc.QueryForm(c.Request.Context(), req)
+	if err != nil {
+		response.Failed(c.Writer, err)
+		return
+	}
+
+	// 成功, 把对象实例返回给HTTP API调用方
+	response.Success(c.Writer, set)
+}
+
+func (h *Handler) describeForm(c *gin.Context) {
+	// 从http请求的query string 中获取参数
+	req := form.NewDescribeFormRequestWithId(c.Param("id"))
+
+	// 进行接口调用, 返回 肯定有成功或者失败
+	set, err := h.svc.DescribeForm(c.Request.Context(), req)
+	if err != nil {
+		response.Failed(c.Writer, err)
+		return
+	}
+
+	response.Success(c.Writer, set)
+}

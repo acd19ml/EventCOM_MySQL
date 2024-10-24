@@ -1,6 +1,8 @@
 package form
 
 import (
+	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -10,16 +12,33 @@ var (
 	validate = validator.New()
 )
 
-type FormSet struct {
-	Items []*Form
-	Total int
+func NewFormSet() *FormSet {
+	return &FormSet{
+		Items: []*Form{},
+	}
 }
 
+type FormSet struct {
+	Total int     `json:"total"`
+	Items []*Form `json:"forms"`
+}
+
+func (s *FormSet) Add(item *Form) {
+	s.Items = append(s.Items, item)
+}
+
+func (f *Form) AddField(field *Field) {
+	f.FieldSet = append(f.FieldSet, field)
+}
 func NewForm() *Form {
 	return &Form{
 		Head:     &Head{},
 		FieldSet: []*Field{},
 	}
+}
+
+func NewField() *Field {
+	return &Field{}
 }
 
 // Form模型的定义
@@ -62,7 +81,53 @@ type Field struct {
 	Options           []string `json:"options,omitempty"`            // 选择类型的可选项
 }
 
+func NewQueryFormFromHTTP(r *http.Request) *QueryFormRequest {
+	req := NewQueryFormRequest()
+	// query string
+	qs := r.URL.Query()
+	pss := qs.Get("page_size")
+	if pss != "" {
+		req.PageSize, _ = strconv.Atoi(pss)
+	}
+
+	pns := qs.Get("page_number")
+	if pns != "" {
+		req.PageNumber, _ = strconv.Atoi(pns)
+	}
+
+	req.Keywords = qs.Get("kws")
+	return req
+}
+
+func NewQueryFormRequest() *QueryFormRequest {
+	return &QueryFormRequest{
+		PageSize:   20,
+		PageNumber: 1,
+	}
+}
+
 type QueryFormRequest struct {
+	PageSize   int    `json:"page_size"`
+	PageNumber int    `json:"page_number"`
+	Keywords   string `json:"kws"`
+}
+
+func (q *QueryFormRequest) OffSet() int64 {
+	return int64((q.PageNumber - 1) * q.PageSize)
+}
+
+func (q *QueryFormRequest) GetPageSize() uint {
+	return uint(q.PageSize)
+}
+
+func NewDescribeFormRequestWithId(id string) *DescribeFormRequest {
+	return &DescribeFormRequest{
+		Id: id,
+	}
+}
+
+type DescribeFormRequest struct {
+	Id string
 }
 
 type UpdateFormRequest struct {

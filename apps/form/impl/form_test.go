@@ -76,6 +76,29 @@ func TestCreate(t *testing.T) {
 
 }
 
+func TestQuery(t *testing.T) {
+	should := assert.New(t)
+
+	req := form.NewQueryFormRequest()
+	req.Keywords = "test"
+	set, err := service.QueryForm(context.Background(), req)
+	if should.NoError(err) {
+		for i := range set.Items {
+			fmt.Println(set.Items[i].Id, set.Total)
+		}
+	}
+}
+
+func TestDescribe(t *testing.T) {
+	should := assert.New(t)
+
+	req := form.NewDescribeFormRequestWithId("id-01")
+	ins, err := service.DescribeForm(context.Background(), req)
+	if should.NoError(err) {
+		fmt.Println(ins.Id)
+	}
+}
+
 func init() {
 	// 测试用例的配置文件
 	// err := conf.LoadConfigFromToml("../../../etc/demo.toml")
